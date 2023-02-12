@@ -1,16 +1,16 @@
 
 import styles  from '../Filter/Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {contactsSearchAction} from '../../redux/contacts/contacts.slice';
+import { getFilter} from "../../redux/filter/filter.selector";
+import { addFilter } from '../../redux/filter/filter.slice';
 
 export const Filter = () => {
     const dispatch = useDispatch();
+    const filter = useSelector(getFilter);   
 
-    const filter = useSelector(state => state.contacts.filter);
-
-    const handleFilter = event =>{              
+    const handleFilter = event =>{                          
         dispatch(
-            contactsSearchAction(
+            addFilter(
               event.target.value,
             ), 
         );
