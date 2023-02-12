@@ -3,7 +3,8 @@ import styles  from '../ContactForm/ContactForm.module.css';
 import {useState} from "react";
 
 import { useSelector, useDispatch } from 'react-redux';
-import {setInContacts} from '../../redux/contacts/contacts.slice';
+import { addContact } from "../../redux/contacts/operetions";
+import { getContacts} from "../../redux/contacts/contacts.selectors";
 
 const getRandomID=()=> {
   return `${Math.floor(Math.random() * 16777215).toString(16)}`;
@@ -11,7 +12,7 @@ const getRandomID=()=> {
 
 export const ContactForm =()=> { 
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.data);
+  const contacts = useSelector(getContacts);
 
   const [name,setInName] = useState(''); 
   const [number,setInNumber] = useState('');
@@ -31,9 +32,9 @@ export const ContactForm =()=> {
     }   
     
     dispatch(
-      setInContacts(
+      addContact(
         {id:getRandomID(), name, number }   
-        ), 
+      ), 
     );         
   };
 
