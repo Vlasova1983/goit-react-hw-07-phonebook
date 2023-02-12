@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-  persistStore,
+import {  
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -10,17 +9,21 @@ import {
 } from 'redux-persist';
 
 import { contactInitState } from './contacts/contacts.init-state';
-import { contactReducer } from './contacts/contacts.slice';
+import { contactsReducer } from '../redux/contacts/contacts.slice';
+import { filterReducer } from './filter/filter.slice';
+import { filterInitState } from './filter/filter.init-state';
 
 const initState = { 
- contacts: contactInitState,
+  contacts: contactInitState.contacts,
+  filter:filterInitState,
 };
 
 export const store = configureStore({
   preloadedState: initState,
   devTools: true,
   reducer: {    
-    contacts: contactReducer,
+    contacts: contactsReducer, 
+    filter: filterReducer,    
   },
 
   middleware: getDefaultMiddleware =>
@@ -31,4 +34,3 @@ export const store = configureStore({
     }),
 });
 
-export const persistor = persistStore(store);
